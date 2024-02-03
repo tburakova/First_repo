@@ -7,7 +7,7 @@ def get_days_from_today(date=input("Введіть дату YYYY-MM-DD: ")):
     except Exception as e:
         print(f"{e}")
     date_now = datetime.today()
-    print((date_now-date1).days)
+    return(date1-date_now).days
 
 print(get_days_from_today())
 
