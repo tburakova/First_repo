@@ -1,3 +1,39 @@
+#Task_1
+path = r"D:\Project\salary.txt"
+
+
+def total_salary(path):
+       try:
+           with open(path,"r",encoding="UTF-8") as file1:
+              salary=[float(el.strip().split(",")[1]) for el in file1.readlines() if el]
+              return (sum(salary),sum(salary)/len(salary))
+       except: FileNotFoundError
+total, average = total_salary(path)
+print(f"Загальна сума: {total}, середня заробіттна плата: {average}")
+
+
+#Task_2
+
+path = r"D:\Project\cat.txt"
+
+def get_cats_info(path):
+    try:
+        with open(path, 'r', encoding='UTF-8') as cats:
+            list=[]  
+            read_cats = cats.readlines()
+            for cat in read_cats:
+                pars= cat.strip().split(',')
+                cat_id, cat_name, cat_age = pars
+                list.append({"id": cat_id, "name": cat_name, "age": cat_age})
+    except Exception as e:
+        print(f"Error: {e}")
+    return list
+list=get_cats_info(path)
+
+print(*list, sep='\n')
+
+
+#Task_4
 def parse_input(user_input):
     cmd, *args = user_input.split()
     cmd = cmd.strip().lower()
