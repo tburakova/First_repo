@@ -1,110 +1,73 @@
-#Task_1
+from collections import UserDict
 
-def caching_fibonacci():
-    cache = dict()
-    def fibonacci(n):
-       if n <= 0: return 0
-       if n==1: return 1
-       if n in cache: return cache[n]
+class Field:
+    def __init__(self, value):
+        self.value = value
+       
+    def __str__(self):
+        return str(self.value) 
 
-       cache[n]= fibonacci(n - 1) + fibonacci(n - 2)
-       return cache[n]
-    return fibonacci
+class Name(Field): 
+    pass
 
-f=caching_fibonacci()
-print(f(15))
-print(f(10))
+class Phone(Field):
+    def __init__(self, phone):
+        self.phone = phone
 
-#Task_2
-from functools import reduce
-from typing import Callable
-import re
-def generator_numbers(text: str):
-    numbers=map(float,filter(lambda x: re.match(r"\d+[\.,]{0,1}\d+.",x),text.split(" ")))
-    for number in numbers:
-        yield number
-
-def sum_profit(text: str, func: Callable):
-    return reduce(lambda x,y:x+y ,func(text))
-
-if __name__=="__main__":
-    text = "Загальний дохід працівника складається з декількох частин: 1000.01 як основний дохід, доповнений додатковими надходженнями 27.45 і 324.00 доларів."
-    total_income = sum_profit(text, generator_numbers)
-    print(f"Загальний дохід: {total_income}")
-
-#Task_4
-def input_error(func):
-    def inner(*args, **kwargs):
-        try:
-            return func(*args, **kwargs)
-        except ValueError:
-            return "Give me name and phone please."
-        except KeyError:
-            return "No such name found"
-        except IndexError:
-            return "Not found"
-        except Exception as e:
-            return f"Error: {e}"
-
-    return inner
-
-@input_error
-
-def parse_input(user_input):
-    cmd, *args = user_input.split()
-    cmd = cmd.strip().lower()
-    return cmd, *args
-
-@input_error
-
-def add_contact(args, contacts):
-    name, phone = args
-    contacts[name] = phone
-    return "Contact added."
-
-@input_error
-
-def change_contact(args, contacts):
-    name, phone = args
-    contacts[name] = phone
-    return "Contact update"
-
-@input_error
-
-def show_phone(args, contacts):
-    name=args[0]
-    if name in contacts:
-        return contacts[name]
-    return 'Not found'
-
-@input_error
-
-def show_all(args, contacts):
-       for k,v in contacts.items():
-           return contacts
-
-def main():
-    contacts = {}
-    print("Welcome to the assistant bot!")
-    while True:
-        user_input = input("Enter a command: ")
-        command, *args = parse_input(user_input)
-
-        if command in ["close", "exit"]:
-            print("Good bye!")
-            break
-        elif command == "hello":
-            print("How can I help you?")
-        elif command == "add":
-            print(add_contact(args, contacts))
-        elif command == "change":
-            print(change_contact(args, contacts))
-        elif command == "phone":
-            print(show_phone(args, contacts))
-        elif command == "all":
-            print(show_all(args, contacts))
+    def is_valid(self):
+        if len(str(self.phone)) == 10:
+            return (f"self.phone")
         else:
-            print("Invalid command.")
+            return (f"Номер не відповідає формату")
+        
+class Record (Field):
+    def __init__(self, name, phone):
+        self.name = Name(name)
+        self.phone = Phone(phone)
+        
+        self.phones = []    
+    
+    def add_phone (self):
+        for  self.phone in self.phones:
+            if self.phone not in self.phones:
+                return self.phones.append(self.phone, end= ',')
+            else:
+                return self.phone == self.phone
+            
+    def find_phone(self):
+        for self.phone in self.phones:
+            if self.phone in self.phones:
+                return self.phone
+            else:
+                return f'{self.phone} is not found'
+   
+    def edit_phones(self):
+        [self.phone if self.phone == self.phone else self.phone for self.phone in self.phones]
+        return self.phones
 
-if __name__ == "__main__":
-    main()
+    # реалізація класу
+    
+class AddressBook(UserDict): # реалізація класу
+    
+    def add_record (self, name, record):
+        record = Record(record)
+        self.data[name] = record
+        for name, record in self.data.items():
+            if name and record not in self.data.items:
+                self.data.update(name, record)
+                return f'{name, record}'
+            else:
+                print (f'{record}')  
+
+    def find (self, name, record):
+        for name, record in self.data.items():
+            if name and record in self.data.items():
+                return f'{record}'
+            
+    def  delete (self, name, record):
+        for name, record in self.data.items():
+            if name and record not in self.data.items:
+                self.data.pop (name, record) 
+            return f'{record}'
+          
+__name__ == "__main__"
