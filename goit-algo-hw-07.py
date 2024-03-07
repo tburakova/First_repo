@@ -1,11 +1,15 @@
 from datetime import datetime, timedelta
 
-class Phone:
+class Field:
+    def __init__(self, value):
+        self.value = value
+
+class Phone(Field):
     def __init__(self, number):
         self.number = number
         if len(number) != 10 or not number.isdigit():
             raise ValueError("Phone number must be 10 digits long")
-        super().__init__(number)
+        super().__init__(number) 
 
 class Birthday:
     def __init__(self, date):
